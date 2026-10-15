@@ -1,0 +1,282 @@
+{
+ "ok": true,
+ "tag": "DEMO",
+ "updated": "2026-10-15T05:00:00Z",
+ "questions": {
+  "d1": {
+   "id": "d1",
+   "row": 2,
+   "kind": "text",
+   "question": "This is a demo question. Which answer is correct?",
+   "images": [],
+   "choices": [
+    {
+     "letter": "A",
+     "text": "This one",
+     "image": ""
+    },
+    {
+     "letter": "B",
+     "text": "Not this one",
+     "image": ""
+    },
+    {
+     "letter": "C",
+     "text": "Not this one either",
+     "image": ""
+    }
+   ],
+   "correct": 0,
+   "funFact": "Fun facts appear here after every answer."
+  },
+  "d2": {
+   "id": "d2",
+   "row": 3,
+   "kind": "image",
+   "question": "Which Libbie is the happy one?",
+   "images": [],
+   "choices": [
+    {
+     "letter": "A",
+     "text": "",
+     "image": "assets/libbie-wrong.webp"
+    },
+    {
+     "letter": "B",
+     "text": "",
+     "image": "assets/libbie-correct.webp"
+    },
+    {
+     "letter": "C",
+     "text": "",
+     "image": "assets/libbie-fixit.webp"
+    },
+    {
+     "letter": "D",
+     "text": "",
+     "image": "assets/libbie-reading.webp"
+    }
+   ],
+   "correct": 1,
+   "funFact": "Picture questions can have up to four answers."
+  },
+  "d3": {
+   "id": "d3",
+   "row": 4,
+   "kind": "text",
+   "question": "What is Libbie doing in this picture?",
+   "images": [
+    "assets/libbie-reading.webp"
+   ],
+   "choices": [
+    {
+     "letter": "A",
+     "text": "Reading a book",
+     "image": ""
+    },
+    {
+     "letter": "B",
+     "text": "Fixing something",
+     "image": ""
+    },
+    {
+     "letter": "C",
+     "text": "Waving hello",
+     "image": ""
+    }
+   ],
+   "correct": 0,
+   "funFact": "Questions can have up to three pictures above the answers."
+  },
+  "d4": {
+   "id": "d4",
+   "row": 5,
+   "kind": "text",
+   "question": "How many answers can a text question have?",
+   "images": [],
+   "choices": [
+    {
+     "letter": "A",
+     "text": "Two",
+     "image": ""
+    },
+    {
+     "letter": "B",
+     "text": "Up to three",
+     "image": ""
+    },
+    {
+     "letter": "C",
+     "text": "Ten",
+     "image": ""
+    }
+   ],
+   "correct": 1,
+   "funFact": "Text questions have up to three answers; picture questions up to four."
+  },
+  "d5": {
+   "id": "d5",
+   "row": 6,
+   "kind": "text",
+   "question": "What happens to a door once it's been answered?",
+   "images": [],
+   "choices": [
+    {
+     "letter": "A",
+     "text": "It disappears",
+     "image": ""
+    },
+    {
+     "letter": "B",
+     "text": "It shows a happy or angry Libbie",
+     "image": ""
+    },
+    {
+     "letter": "C",
+     "text": "It turns into a cat",
+     "image": ""
+    }
+   ],
+   "correct": 1,
+   "funFact": "Doors stay locked until every door on the board is opened."
+  },
+  "d6": {
+   "id": "d6",
+   "row": 7,
+   "kind": "text",
+   "question": "What does the Refresh button do?",
+   "images": [],
+   "choices": [
+    {
+     "letter": "A",
+     "text": "Deals out the next round or reshuffles",
+     "image": ""
+    },
+    {
+     "letter": "B",
+     "text": "Deletes the quiz",
+     "image": ""
+    },
+    {
+     "letter": "C",
+     "text": "Changes the music",
+     "image": ""
+    }
+   ],
+   "correct": 0,
+   "funFact": "Quizzes with more than 30 questions are split into even rounds."
+  },
+  "d7": {
+   "id": "d7",
+   "row": 8,
+   "kind": "text",
+   "question": "Where do new questions come from?",
+   "images": [],
+   "choices": [
+    {
+     "letter": "A",
+     "text": "The Google Form",
+     "image": ""
+    },
+    {
+     "letter": "B",
+     "text": "A Unity re-export",
+     "image": ""
+    },
+    {
+     "letter": "C",
+     "text": "Carrier pigeon",
+     "image": ""
+    }
+   ],
+   "correct": 0,
+   "funFact": "No GitHub edits needed any more."
+  },
+  "d8": {
+   "id": "d8",
+   "row": 9,
+   "kind": "text",
+   "question": "How do you reuse a question in another quiz?",
+   "images": [],
+   "choices": [
+    {
+     "letter": "A",
+     "text": "Copy and paste it",
+     "image": ""
+    },
+    {
+     "letter": "B",
+     "text": "Tick its box in the quiz column",
+     "image": ""
+    },
+    {
+     "letter": "C",
+     "text": "Email it to yourself",
+     "image": ""
+    }
+   ],
+   "correct": 1,
+   "funFact": "Each question is stored once and can sit in many quizzes."
+  },
+  "d9": {
+   "id": "d9",
+   "row": 10,
+   "kind": "text",
+   "question": "What fits the number of doors to the quiz?",
+   "images": [],
+   "choices": [
+    {
+     "letter": "A",
+     "text": "The web page",
+     "image": ""
+    },
+    {
+     "letter": "B",
+     "text": "A colleague with scissors",
+     "image": ""
+    },
+    {
+     "letter": "C",
+     "text": "Nothing",
+     "image": ""
+    }
+   ],
+   "correct": 0,
+   "funFact": "Nine questions give nine doors."
+  }
+ },
+ "warnings": [],
+ "quizzes": [
+  {
+   "key": "Demo",
+   "title": "Demo quiz",
+   "qr": "",
+   "qrCaption": "",
+   "hidden": false,
+   "questionIds": [
+    "d1",
+    "d2",
+    "d3",
+    "d4",
+    "d5",
+    "d6",
+    "d7",
+    "d8",
+    "d9"
+   ]
+  },
+  {
+   "key": "DemoShort",
+   "title": "",
+   "qr": "",
+   "qrCaption": "",
+   "hidden": false,
+   "questionIds": [
+    "d1",
+    "d2",
+    "d3",
+    "d4"
+   ]
+  }
+ ]
+}

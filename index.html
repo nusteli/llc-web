@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Libbie's Library Challenge</title>
+  <meta name="description" content="Open a door, answer a quick library trivia question and meet Libbie.">
+  <link rel="icon" href="assets/libbie-correct.webp">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-bg="blue">
+
+  <!-- ============ START SCREEN ============ -->
+  <section id="screen-start" class="screen is-active" aria-label="Start">
+    <img class="start-title" src="assets/title.webp" alt="Libbie's Library Challenge">
+    <button id="btn-start" class="img-btn start-btn" aria-label="Start">
+      <img src="assets/btn-start.webp" alt="">
+    </button>
+    <p id="start-status" class="start-status" role="status"></p>
+  </section>
+
+  <!-- ============ DOOR BOARD ============ -->
+  <section id="screen-board" class="screen" aria-label="Door board">
+    <header class="board-bar">
+      <img class="bar-title" src="assets/title.webp" alt="Libbie's Library Challenge">
+      <div class="bar-progress" id="bar-progress" aria-live="polite"></div>
+      <div class="bar-actions">
+        <button id="btn-sound" class="icon-btn" aria-label="Music on" aria-pressed="true">
+          <img src="assets/icon-sound-on.webp" alt="">
+        </button>
+        <button id="btn-fullscreen" class="icon-btn icon-btn--plain" aria-label="Full screen">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button id="btn-settings" class="icon-btn icon-btn--gear" aria-label="Staff settings">
+          <img src="assets/btn-settings.webp" alt="">
+        </button>
+      </div>
+    </header>
+
+    <div id="board" class="board" aria-label="Doors"></div>
+
+    <div id="round-done" class="round-done" hidden>
+      <img src="assets/libbie-wave.webp" alt="" class="round-done__libbie">
+      <p id="round-done-text" class="round-done__text">All doors opened!</p>
+      <button id="btn-refresh" class="img-btn refresh-btn" aria-label="Refresh doors">
+        <img src="assets/btn-refresh.webp" alt="">
+      </button>
+    </div>
+  </section>
+
+  <!-- ============ QUESTION MODAL ============ -->
+  <div id="modal-question" class="modal" hidden>
+    <div class="modal__backdrop" data-close></div>
+    <div class="panel panel--question" role="dialog" aria-modal="true" aria-labelledby="q-heading">
+      <div class="panel__title"><span id="q-heading">Door 1</span></div>
+      <button class="panel__close" data-close aria-label="Close">×</button>
+      <div class="panel__body">
+        <p id="q-text" class="q-text"></p>
+        <div id="q-images" class="q-images"></div>
+        <div id="q-choices" class="q-choices"></div>
+        <div id="q-result" class="q-result" hidden>
+          <img id="q-result-libbie" class="q-result__libbie" src="" alt="">
+          <div class="q-result__body">
+            <p id="q-result-heading" class="q-result__heading"></p>
+            <p id="q-result-fact" class="q-result__fact"></p>
+            <div id="q-result-qr" class="q-result__qr" hidden>
+              <img id="q-result-qr-img" src="" alt="QR code">
+              <span id="q-result-qr-caption"></span>
+            </div>
+            <button id="btn-continue" class="pill-btn">Continue</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ STAFF: PIN ============ -->
+  <div id="modal-pin" class="modal" hidden>
+    <div class="modal__backdrop" data-close></div>
+    <div class="panel panel--small" role="dialog" aria-modal="true" aria-labelledby="pin-heading">
+      <div class="panel__title"><span id="pin-heading">Staff only</span></div>
+      <div class="panel__body panel__body--center">
+        <label for="pin-input" class="field-label">Enter PIN</label>
+        <input id="pin-input" class="pin-input" type="password" inputmode="numeric" autocomplete="off" maxlength="12">
+        <p id="pin-message" class="field-message" role="alert"></p>
+        <div class="img-btn-row">
+          <button id="btn-unlock" class="img-btn small-img-btn" aria-label="Unlock"><img src="assets/btn-unlock.webp" alt=""></button>
+          <button class="img-btn small-img-btn" data-close aria-label="Cancel"><img src="assets/btn-cancel.webp" alt=""></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ STAFF: SETUP ============ -->
+  <div id="modal-setup" class="modal" hidden>
+    <div class="modal__backdrop"></div>
+    <div class="panel panel--setup" role="dialog" aria-modal="true" aria-labelledby="setup-heading">
+      <div class="panel__title"><span id="setup-heading">Before we begin...</span></div>
+      <div class="panel__body">
+        <div class="setup-grid">
+          <label for="setup-quiz" class="field-label">Select quiz</label>
+          <select id="setup-quiz" class="field-select"></select>
+
+          <label for="setup-bg" class="field-label">Background colour</label>
+          <select id="setup-bg" class="field-select">
+            <option value="blue">Blue</option>
+            <option value="green">Green</option>
+            <option value="orange">Orange</option>
+            <option value="pink">Pink</option>
+            <option value="purple">Purple</option>
+            <option value="yellow">Yellow</option>
+            <option value="grey">Grey</option>
+          </select>
+
+          <span></span>
+          <label class="check"><input type="checkbox" id="setup-show-hidden"> Show hidden quizzes</label>
+        </div>
+
+        <p id="setup-summary" class="setup-summary"></p>
+
+        <div class="img-btn-row">
+          <button id="btn-apply" class="img-btn small-img-btn" aria-label="Apply"><img src="assets/btn-apply.webp" alt=""></button>
+          <button id="btn-cancel" class="img-btn small-img-btn" aria-label="Cancel"><img src="assets/btn-cancel.webp" alt=""></button>
+        </div>
+
+        <details class="staff-tools" id="staff-tools">
+          <summary>Staff tools</summary>
+          <div class="staff-tools__body">
+            <p class="staff-line"><strong>Link for this quiz:</strong> open this on the event screen to skip this setup.</p>
+            <div class="copy-row">
+              <input id="setup-link" class="field-input" readonly>
+              <button id="btn-copy-link" class="pill-btn pill-btn--small">Copy</button>
+            </div>
+            <div class="staff-buttons">
+              <button id="btn-reload" class="pill-btn pill-btn--small">Reload questions</button>
+              <button id="btn-download" class="pill-btn pill-btn--small">Download this device's results</button>
+            </div>
+            <p id="setup-source" class="staff-line staff-line--muted"></p>
+            <ul id="setup-warnings" class="setup-warnings"></ul>
+          </div>
+        </details>
+      </div>
+    </div>
+  </div>
+
+  <audio id="sfx-click" src="assets/click.m4a" preload="auto"></audio>
+  <audio id="music" src="assets/music.m4a" preload="none" loop></audio>
+
+  <script src="app.js"></script>
+</body>
+</html>
