@@ -5,7 +5,7 @@
 const CONFIG = {
   // Apps Script web app (/exec URL) from the NEW deployment of Code.gs.
   // Sends the questions and logs answers. Don't use the live game's URL.
-  API_URL: "PASTE_NEW_DEPLOYMENT_URL_HERE",
+  API_URL: "https://script.google.com/macros/s/AKfycbyRIVGS83GBNQB5SpgJ7fsiRC-SHUWWmeVLCmJeARRNXDku2i7hPxAvfqga1lxp8NIzmQ/exec",
 
   // PIN for the staff settings (gear button). Change this to your own.
   STAFF_PIN: "1234",
