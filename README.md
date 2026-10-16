@@ -25,10 +25,11 @@ Nothing here changes `nusteli/libbieslc`, the live Apps Script deployment, or th
 ### 2. Make a new Apps Script deployment
 
 1. Create a new script at script.google.com (New project), or open the copy's **Extensions → Apps Script**.
-2. Paste in `apps-script/Code.gs`, then set the two IDs at the top to the **copy's** ID. That's the long code in its URL between `/d/` and `/edit`.
-   - `SPREADSHEET_ID`: where answers are logged. Using the copy keeps test answers out of the live results.
-   - `QUESTIONS_SPREADSHEET_ID`: where questions are read from.
-3. Check `QUESTIONS_SHEET_NAME` matches the responses tab name, usually `Form Responses 1`.
+2. Paste in `apps-script/Code.gs` and fill in the three settings at the top. An ID is the long code in a spreadsheet's URL between `/d/` and `/edit`.
+   - `SPREADSHEET_ID`: the results spreadsheet, where answers are logged. Use a test copy so test answers stay out of the live results.
+   - `QUESTIONS_SPREADSHEET_ID`: the question spreadsheet (your test copy).
+   - `BUILDER_PIN`: the PIN for the Quiz Builder. The builder stays switched off until you change it from `CHANGE-ME`. It lives only in the script, never on GitHub.
+3. The script finds the questions tab by itself (any tab with `Question` and `CorrectAnswer` columns). If it can't, the `/exec` page lists the tabs it sees, which usually means the ID points at the wrong file.
 4. Choose **Deploy → New deployment → Web app**, with Execute as *Me* and Who has access *Anyone*. Approve the permissions.
 5. Copy the new `/exec` URL. Open it in a browser; you should see the questions as text (JSON).
 
@@ -41,12 +42,14 @@ The live game's script and URL are not touched by any of this.
    - `index.html`
    - `style.css`
    - `app.js`
+   - `builder.js`
+   - `config.js`
    - `demo.json`
    - the `assets/` folder
    - optionally `README.md` and `apps-script/`
-3. In `app.js`, change two settings:
+3. In `config.js` (the only file you need to edit), change two settings:
    - Set `API_URL` to the new `/exec` URL.
-   - Set `STAFF_PIN` to your PIN (currently `1234`).
+   - Set `STAFF_PIN` to your gear-button PIN (currently `1234`).
 4. Go to **Settings → Pages → Build and deployment → Deploy from a branch → `main` / `(root)` → Save**. After a minute or two the site is at `https://nusteli.github.io/libbie-web/`.
 
 ### 4. Try it
@@ -74,18 +77,22 @@ The old Unity site can stay up as long as you like.
 - **CorrectAnswer:** can be the letter (`B`) or the answer text.
 - **Pictures:** Google Drive share links work, as well as GitHub image links.
 
-**Putting a question in a quiz:** there are two ways, and you can use either or both.
-- In the **EventKey** cell, type the quiz name. To use the question in several quizzes, separate the names with commas: `OpenHouse2026, NUS120`.
-- Or add a column to the responses tab headed **`Quiz: YourQuizName`**, insert checkboxes in it (Insert → Checkbox), and tick the questions you want. This is the easiest way to build a quiz from existing questions. If the script is attached to the sheet, the **Libbie → New quiz** menu does this for you.
+**Building a quiz (no spreadsheet access needed):**
+1. Tap the gear, enter the staff PIN, open **Staff tools → Quiz Builder**, and enter the builder PIN.
+2. Choose **+ New quiz** and type a name, or pick an existing quiz from the list.
+3. Tick the questions you want. Search finds questions by their words, answers or the quizzes they're already in.
+4. Click **Save quiz**. It appears in the quiz list straight away.
 
-**Optional settings tab:** add a tab called **`Quizzes`** with these headers:
+The builder can also give a quiz a title, hide it from the list, or delete a quiz it made.
 
-| Quiz | Title | QR Image URL | QR Caption | Hide |
-|---|---|---|---|---|
+**Other ways a question gets into a quiz** (for people with sheet access): both still work alongside the builder.
+- The **EventKey** cell names the quiz; separate several with commas, e.g. `OpenHouse2026, NUS120`.
+- A column headed **`Quiz: YourQuizName`** with checkboxes.
+- Questions added this way show in the builder as locked, labelled "Added in the sheet", and are changed in the sheet.
 
-- **Title:** shown on the board instead of the key.
-- **QR Image URL:** shown after each answer.
-- **Hide:** a checkbox that removes old quizzes from the dropdown without deleting anything.
+**Two columns the script manages:** a `QID` column in the question tab gives every question a permanent ID, and the `Quizzes` tab stores builder quizzes. Don't edit or delete either by hand; the `Questions` column in particular holds those IDs.
+
+**QR codes:** the `Quizzes` tab also has **QR Image URL** and **QR Caption** columns. Fill them in for a quiz to show a QR code after each answer.
 
 **Running it at an event:**
 1. Tap the gear and enter the PIN.
@@ -95,7 +102,7 @@ The old Unity site can stay up as long as you like.
 
 **Problems with questions?** Staff tools lists them, e.g. "Row 17: correct answer doesn't match any choice". So does **Libbie → Check questions** in the sheet.
 
-## Settings in `app.js`
+## Settings in `config.js`
 
 | Setting | What it does |
 |---|---|

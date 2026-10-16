@@ -126,6 +126,11 @@
           <button id="btn-cancel" class="img-btn small-img-btn" aria-label="Cancel"><img src="assets/btn-cancel.webp" alt=""></button>
         </div>
 
+        <p id="setup-unassigned" class="setup-unassigned" hidden>
+          <span id="setup-unassigned-text"></span>
+          <button id="btn-unassigned" class="link-btn">Add them to a quiz</button>
+        </p>
+
         <details class="staff-tools" id="staff-tools">
           <summary>Staff tools</summary>
           <div class="staff-tools__body">
@@ -135,6 +140,7 @@
               <button id="btn-copy-link" class="pill-btn pill-btn--small">Copy</button>
             </div>
             <div class="staff-buttons">
+              <button id="btn-builder" class="pill-btn pill-btn--small">Quiz Builder</button>
               <button id="btn-reload" class="pill-btn pill-btn--small">Reload questions</button>
               <button id="btn-download" class="pill-btn pill-btn--small">Download this device's results</button>
             </div>
@@ -146,9 +152,67 @@
     </div>
   </div>
 
+  <!-- ============ STAFF: QUIZ BUILDER ============ -->
+  <div id="modal-builder" class="modal" hidden>
+    <div class="modal__backdrop"></div>
+    <div class="panel panel--builder" role="dialog" aria-modal="true" aria-labelledby="builder-heading">
+      <div class="panel__title"><span id="builder-heading">Quiz Builder</span></div>
+      <button class="panel__close" id="builder-close" aria-label="Close Quiz Builder">×</button>
+
+      <!-- step 1: builder PIN -->
+      <div id="builder-lock" class="panel__body panel__body--center">
+        <label for="builder-pin" class="field-label">Builder PIN</label>
+        <input id="builder-pin" class="pin-input" type="password" inputmode="numeric" autocomplete="off" maxlength="20">
+        <p id="builder-pin-message" class="field-message" role="alert"></p>
+        <button id="builder-unlock" class="pill-btn">Unlock</button>
+      </div>
+
+      <!-- step 2: build -->
+      <div id="builder-main" class="builder" hidden>
+        <div class="builder__settings">
+          <div class="builder__field builder__field--quiz">
+            <label for="builder-quiz" class="field-label">Quiz</label>
+            <select id="builder-quiz" class="field-select"></select>
+          </div>
+          <div class="builder__field" id="builder-name-field">
+            <label for="builder-name" class="field-label">New quiz name</label>
+            <input id="builder-name" class="field-input" maxlength="60" placeholder="e.g. Biodiversity2026" autocomplete="off">
+          </div>
+          <div class="builder__field">
+            <label for="builder-title" class="field-label">Title on the board <span class="optional">(optional)</span></label>
+            <input id="builder-title" class="field-input" maxlength="80" placeholder="e.g. Biodiversity Week" autocomplete="off">
+          </div>
+          <label class="check builder__hide"><input type="checkbox" id="builder-hidden"> Hide from the quiz list</label>
+        </div>
+
+        <div class="builder__toolbar">
+          <input id="builder-search" class="field-input builder__search" type="search" placeholder="Search questions, answers or quiz names" autocomplete="off">
+          <div class="seg" role="radiogroup" aria-label="Show">
+            <button class="seg__btn is-on" data-filter="all" role="radio" aria-checked="true">All</button>
+            <button class="seg__btn" data-filter="in" role="radio" aria-checked="false">In this quiz</button>
+            <button class="seg__btn" data-filter="out" role="radio" aria-checked="false">Not in it</button>
+            <button class="seg__btn" data-filter="none" role="radio" aria-checked="false" id="seg-none">Not in any quiz</button>
+          </div>
+        </div>
+
+        <p id="builder-count" class="builder__count" aria-live="polite"></p>
+        <ul id="builder-list" class="builder__list" aria-label="Questions"></ul>
+
+        <div class="builder__footer">
+          <p id="builder-status" class="builder__status" role="status"></p>
+          <button id="builder-delete" class="pill-btn pill-btn--small pill-btn--danger">Delete quiz</button>
+          <button id="builder-cancel" class="pill-btn pill-btn--small pill-btn--ghost">Close</button>
+          <button id="builder-save" class="pill-btn">Save quiz</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <audio id="sfx-click" src="assets/click.m4a" preload="auto"></audio>
   <audio id="music" src="assets/music.m4a" preload="none" loop></audio>
 
+  <script src="config.js"></script>
   <script src="app.js"></script>
+  <script src="builder.js"></script>
 </body>
 </html>

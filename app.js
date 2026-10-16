@@ -2,27 +2,16 @@
    Libbie's Library Challenge — web version
    ========================================================= */
 
-const CONFIG = {
-  // Apps Script web app (/exec URL) from the NEW deployment of Code.gs.
-  // Sends the questions and logs answers. Don't use the live game's URL.
-  API_URL: "https://script.google.com/macros/s/AKfycbyRIVGS83GBNQB5SpgJ7fsiRC-SHUWWmeVLCmJeARRNXDku2i7hPxAvfqga1lxp8NIzmQ/exec",
-
-  // PIN for the staff settings (gear button). Change this to your own.
+// Settings live in config.js, so updating the game files never
+// overwrites your Apps Script URL or PIN. These are the defaults.
+const CONFIG = Object.assign({
+  API_URL: "PASTE_NEW_DEPLOYMENT_URL_HERE",
   STAFF_PIN: "1234",
-
-  // Most doors shown at once. Bigger quizzes are split into even rounds,
-  // e.g. 40 questions → two rounds of 20, moved between with Refresh.
   MAX_DOORS_PER_ROUND: 30,
-
-  // Largest a single door gets, as a share of the board's height
-  // (stops 3- or 4-question quizzes from having giant doors).
   MAX_DOOR_HEIGHT_SHARE: 0.4,
-
   DEFAULT_BACKGROUND: "blue",
-
-  // Send each answer to the Google Sheet log.
   LOG_ANSWERS: true
-};
+}, window.LIBBIE_CONFIG || {});
 
 /* ---------- small helpers ---------- */
 const $ = sel => document.querySelector(sel);
@@ -117,6 +106,14 @@ function findQuiz(key) {
   return state.feed.quizzes.find(q => q.key.toLowerCase() === String(key).toLowerCase()) || null;
 }
 function quizLabel(q) { return q.title || q.key; }
+
+// Questions that aren't in any quiz yet (e.g. new from the Google Form).
+function unassignedIds() {
+  if (!state.feed) return [];
+  const used = new Set();
+  state.feed.quizzes.forEach(q => q.questionIds.forEach(id => used.add(id)));
+  return Object.keys(state.feed.questions).filter(id => !used.has(id));
+}
 
 /* =========================================================
    Screens
@@ -503,6 +500,11 @@ function openSetup() {
   warn.innerHTML = "";
   (state.feed?.warnings || []).forEach(w => warn.append(el("li", { text: w })));
   $("#staff-tools").open = !state.feed;
+  const waiting = unassignedIds().length;
+  $("#setup-unassigned").hidden = !waiting;
+  $("#setup-unassigned-text").textContent = waiting === 1
+    ? "1 question isn't in any quiz yet."
+    : waiting + " questions aren't in any quiz yet.";
   updateSetupSummary();
   openModal("#modal-setup");
 }
